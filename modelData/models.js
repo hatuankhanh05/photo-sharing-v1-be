@@ -1,7 +1,5 @@
-"use strict";
-
 /**
- * Model data for Project 4 - the photo sharing site.
+ * Model data for Project 5 - the photo sharing site.
  * This module returns an object called models with the following
  * functions:
  *
@@ -274,8 +272,7 @@ const comment7 = {
 const comment8 = {
   _id: "57231f1a30e4351f4e9f4bf0",
   date_time: "2010-09-06 13:59:33",
-  comment:
-    "Made a new friend today! Well, they followed me " + "home, anyway.",
+  comment: "Made a new friend today! Well, they followed me " + "home, anyway.",
   user: rk,
   photo_id: photo8._id,
 };
@@ -382,4 +379,4 @@ const models = {
   schemaInfo: schemaModel,
 };
 
-module.exports = { models };
+module.exports = models;
