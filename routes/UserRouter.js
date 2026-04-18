@@ -3,17 +3,17 @@ const User = require("../db/userModel");
 const router = express.Router();
 const mongoose = require("mongoose");
 
-router.get("/user/list", async (req, res) => {
+router.get("/list", async (req, res) => {
     try {
         const users = await User.find({}).select("_id first_name last_name");
-        res.status(200).json({users, message: `Successfully returned ${users.length} users`});
+        res.status(200).json(users);
     } catch(err) {
         console.error(err);
         res.status(500).json({message: "Server's error"});
     }
 });
 
-router.get("/user/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const userId = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -25,7 +25,7 @@ router.get("/user/:id", async (req, res) => {
     if (!user) {
         return res.status(404).json({message: "User does not exist"});
     }
-    res.status(200).json({user, message: `Successfully returned user with id: ${userId}`});
+    res.status(200).json(user);
   } catch(err) {
     console.error(err);
     res.status(500).json({message: "Server's error"});

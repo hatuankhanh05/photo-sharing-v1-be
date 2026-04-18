@@ -1,5 +1,6 @@
 const express = require("express");
 const Photo = require("../db/photoModel");
+const User = require("../db/userModel");
 const mongoose = require("mongoose");
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get("/photosOfUser/:id", async (req, res) => {
         const photos = await Photo.find({user_id: userId}).select("_id user_id file_name date_time comments").populate({
             path: "comments.user_id",
             select: "_id first_name last_name",
-            model: "User"
+            model: User
         }).lean();
 
         const finalPhotos = photos.map(photo => {
@@ -30,7 +31,7 @@ router.get("/photosOfUser/:id", async (req, res) => {
             return photo;
         });
 
-        res.status(200).json({finalPhotos, message: `Successfully returned ${finalPhotos.length} photos of user with id: ${userId}`});
+        res.status(200).json(finalPhotos);
     } catch(err) {
         console.error(err);
         res.status(500).json({message: "Server's error"});
